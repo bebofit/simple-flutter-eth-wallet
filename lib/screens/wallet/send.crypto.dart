@@ -236,6 +236,13 @@ class SendCrypto extends StatelessWidget {
 
     EtherAmount gasPrice = await ethClient.getGasPrice();
 
+    var estimatedGas = await ethClient.estimateGas(
+        to: EthereumAddress.fromHex(receiver),
+        gasPrice: gasPrice,
+        maxFeePerGas: EtherAmount.inWei(BigInt.from(100000)),
+        value: txValue);
+    print(estimatedGas);
+
     try {
       await ethClient.sendTransaction(
         credentials,
